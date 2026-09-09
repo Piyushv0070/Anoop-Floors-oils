@@ -1,6 +1,5 @@
-# anoopfloors
-
-A new Flutter project.
+# Anoop-Floors-oils
+Flutter-based mobile app for Anoop Floors & Oils, built with Dart and Android Studio.
 
 ## Getting Started
 
