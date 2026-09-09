@@ -6,6 +6,7 @@ import 'widgets/anoop_app_bar.dart';
 import 'widgets/category_chip.dart';
 import 'widgets/product_card.dart';
 import 'providers/cart_provider.dart';
+import 'product_details_page.dart';
 
 import 'widgets/anoop_drawer.dart';
 import 'all_products_page.dart';
@@ -119,6 +120,14 @@ class HomePage extends StatelessWidget {
           price: product.price,
           imageUrl: product.imageUrl,
           variant: ProductCardVariant.horizontal,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductDetailsPage(product: product),
+              ),
+            );
+          },
           onAdd: () {
             cart.addItem(
               id: product.id,
@@ -162,6 +171,16 @@ class HomePage extends StatelessWidget {
                 subtitle: 'Wood Pressed • 1 Litre',
                 price: '₹320',
                 imageUrl: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=200',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetailsPage(
+                        product: ProductData.allIngredients.firstWhere((i) => i.id == 'oil_1'),
+                      ),
+                    ),
+                  );
+                },
                 onAdd: () {
                   cart.addItem(
                     id: 'oil_1',
@@ -178,6 +197,16 @@ class HomePage extends StatelessWidget {
                 subtitle: 'Kachi Ghani • 1 Litre',
                 price: '₹265',
                 imageUrl: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=200',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetailsPage(
+                        product: ProductData.allIngredients.firstWhere((i) => i.id == 'oil_2'),
+                      ),
+                    ),
+                  );
+                },
                 onAdd: () {
                   cart.addItem(
                     id: 'oil_2',

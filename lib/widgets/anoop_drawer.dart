@@ -17,11 +17,13 @@ class AnoopDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      width: MediaQuery.of(context).size.width * 0.75,
       child: Container(
         color: AppColors.background,
         child: Column(
           children: [
             _buildHeader(context),
+            _buildSummaryCard(),
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.symmetric(vertical: 8),
@@ -29,11 +31,12 @@ class AnoopDrawer extends StatelessWidget {
                   _buildMenuItem(
                     context,
                     Icons.person_outline,
-                    'My Profile',
+                    'My Profile & Dietary Preferences',
                     () {
                       Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage()));
                     },
+                    subtitle: 'Keto-Low Carb • Diabetic-friendly set',
                   ),
                   _buildMenuItem(
                     context,
@@ -43,25 +46,28 @@ class AnoopDrawer extends StatelessWidget {
                       Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const OrderHistoryPage()));
                     },
+                    subtitle: 'Last delivered: 5kg Multi-millet Flour',
                     badge: _buildBadge('1 Active', const Color(0xFFFEF3C7), const Color(0xFF92400E)),
                   ),
                   _buildMenuItem(
                     context,
                     Icons.favorite_border,
-                    'Saved Recipes',
+                    'Saved Grain Blends & Recipes',
                     () {
                       Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const SavedRecipesPage()));
                     },
+                    subtitle: '4 Customized Ratios & Roti recipes',
                   ),
                   _buildMenuItem(
                     context,
                     Icons.layers_outlined,
-                    'Subscriptions',
+                    'Subscriptions & Schedules',
                     () {
                       Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const SubscriptionsPage()));
                     },
+                    subtitle: 'Next dispatch: Tomorrow 9:00 AM',
                     badge: _buildBadge('FRESH RUN', const Color(0xFFD1FAE5), const Color(0xFF065F46), isPill: false),
                   ),
                   _buildMenuItem(
@@ -72,15 +78,17 @@ class AnoopDrawer extends StatelessWidget {
                       Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const ManageAddressesPage()));
                     },
+                    subtitle: 'Indiranagar, Bangalore (Default)',
                   ),
                   _buildMenuItem(
                     context,
                     Icons.payment,
-                    'Payment Methods',
+                    'Saved Payment & UPI',
                     () {
                       Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const PaymentMethodsPage()));
                     },
+                    subtitle: 'UPI • AutoPay Active (HDFC Bank)',
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -94,6 +102,7 @@ class AnoopDrawer extends StatelessWidget {
                       Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const HelpSupportPage()));
                     },
+                    subtitle: '24×7 Milling Master WhatsApp helpline',
                   ),
                   _buildMenuItem(
                     context,
@@ -103,21 +112,10 @@ class AnoopDrawer extends StatelessWidget {
                       Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutAnoopPage()));
                     },
+                    subtitle: '100% Stone-milled & Wood-pressed heritage',
                   ),
-                  _buildMenuItem(
-                    context,
-                    Icons.logout,
-                    'Logout',
-                    () {
-                      Navigator.pop(context);
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => const LoginPage()),
-                        (route) => false,
-                      );
-                    },
-                    textColor: Colors.red,
-                  ),
+                  const SizedBox(height: 16),
+                  _buildLogoutButton(context),
                 ],
               ),
             ),
@@ -130,12 +128,9 @@ class AnoopDrawer extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 60, 16, 24),
+      padding: const EdgeInsets.fromLTRB(16, 60, 16, 40),
       decoration: const BoxDecoration(
         color: AppColors.primaryGreen,
-        borderRadius: BorderRadius.only(
-          bottomRight: Radius.circular(32),
-        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,23 +139,39 @@ class AnoopDrawer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 2),
-                ),
-                child: const CircleAvatar(
-                  radius: 35,
-                  backgroundColor: Colors.white,
-                  backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=anoop'),
-                ),
+              Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2),
+                    ),
+                    child: const CircleAvatar(
+                      radius: 40,
+                      backgroundColor: Colors.white,
+                      backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=radhika'),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFB45309),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.workspace_premium, color: Colors.white, size: 12),
+                    ),
+                  ),
+                ],
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: Colors.white24),
-                  color: Colors.black12,
+                  color: Colors.black26,
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -171,7 +182,7 @@ class AnoopDrawer extends StatelessWidget {
                       'Chakki Club',
                       style: GoogleFonts.poppins(
                         color: Colors.white,
-                        fontSize: 10,
+                        fontSize: 11,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -182,19 +193,48 @@ class AnoopDrawer extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'Anoop Customer',
+            'Radhika Sharma',
             style: GoogleFonts.playfairDisplay(
               color: Colors.white,
               fontWeight: FontWeight.bold,
-              fontSize: 22,
+              fontSize: 24,
             ),
           ),
           Text(
-            'customer@anoopmultigrains.com',
+            'radhika.sharma@example.com',
             style: GoogleFonts.poppins(
               color: const Color(0xFF6EE7B7),
-              fontSize: 12,
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
             ),
+          ),
+          const SizedBox(height: 4),
+          Row(
+            children: [
+              Text(
+                '+91 98765 43210',
+                style: GoogleFonts.poppins(
+                  color: Colors.white70,
+                  fontSize: 12,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF065F46),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  'Verified',
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 12),
           Row(
@@ -220,7 +260,7 @@ class AnoopDrawer extends StatelessWidget {
                 '8 Fresh Orders',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF6EE7B7),
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -231,6 +271,73 @@ class AnoopDrawer extends StatelessWidget {
     );
   }
 
+  Widget _buildSummaryCard() {
+    return Transform.translate(
+      offset: const Offset(0, -20),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 15,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _buildSummaryItem('PANTRY CREDITS', '₹450'),
+            _buildVerticalDivider(),
+            _buildSummaryItem('SUBSCRIPTION', '1 Weekly Run', highlightColor: const Color(0xFF065F46)),
+            _buildVerticalDivider(),
+            _buildSummaryItem('DEFAULT HUB', 'Indiranagar'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSummaryItem(String label, String value, {Color? highlightColor}) {
+    return Expanded(
+      child: Column(
+        children: [
+          Text(
+            label,
+            style: GoogleFonts.poppins(
+              fontSize: 9,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey.shade400,
+              letterSpacing: 0.5,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            value,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: highlightColor ?? AppColors.primaryGreen,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildVerticalDivider() {
+    return Container(
+      height: 30,
+      width: 1,
+      color: Colors.grey.shade100,
+    );
+  }
+
   Widget _buildMenuItem(
     BuildContext context,
     IconData icon,
@@ -238,27 +345,69 @@ class AnoopDrawer extends StatelessWidget {
     VoidCallback onTap, {
     Color? textColor,
     Widget? badge,
+    String? subtitle,
   }) {
     return ListTile(
-      leading: Icon(icon, color: textColor ?? AppColors.primaryGreen, size: 22),
+      leading: Padding(
+        padding: const EdgeInsets.only(top: 4.0),
+        child: Icon(icon, color: textColor ?? AppColors.primaryGreen, size: 24),
+      ),
       title: Row(
         children: [
-          Text(
-            title,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: textColor ?? Colors.black87,
+          Expanded(
+            child: Text(
+              title,
+              style: GoogleFonts.poppins(
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+                color: textColor ?? AppColors.primaryGreen,
+              ),
             ),
           ),
-          if (badge != null) ...[
-            const SizedBox(width: 8),
-            badge,
-          ],
+          if (badge != null) badge,
         ],
       ),
+      subtitle: subtitle != null
+          ? Text(
+              subtitle,
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                color: Colors.grey.shade500,
+              ),
+            )
+          : null,
       onTap: onTap,
       trailing: const Icon(Icons.chevron_right, size: 18, color: Colors.grey),
+    );
+  }
+
+  Widget _buildLogoutButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: OutlinedButton(
+        onPressed: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+            (route) => false,
+          );
+        },
+        style: OutlinedButton.styleFrom(
+          minimumSize: const Size(double.infinity, 24),
+          side: BorderSide(color: Colors.grey.shade300),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        child: Text(
+          'Log Out of Anoop Account',
+          style: GoogleFonts.poppins(
+            color: AppColors.primaryGreen,
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+          ),
+        ),
+      ),
     );
   }
 
@@ -298,9 +447,9 @@ class AnoopDrawer extends StatelessWidget {
                 ),
               ],
             ),
-            child: Image.asset('assets/logo.png', height: 40),
+            child: Image.asset('assets/logo.png', height: 20),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 4),
           Text(
             'ANOOP MULTIGRAINS & OILS',
             style: GoogleFonts.playfairDisplay(

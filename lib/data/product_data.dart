@@ -206,5 +206,23 @@ class ProductData {
       gi: 54,
       calories: 342,
     ),
+    Ingredient(
+      id: 'oil_1',
+      name: 'Groundnut Oil',
+      category: 'Oils',
+      imageUrl: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400',
+      price: '₹320/L',
+      description: 'Wood pressed pure groundnut oil.',
+      tags: ['Cold Pressed', 'Natural'],
+    ),
+    Ingredient(
+      id: 'oil_2',
+      name: 'Black Mustard Oil',
+      category: 'Oils',
+      imageUrl: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400',
+      price: '₹265/L',
+      description: 'Traditional kachi ghani black mustard oil.',
+      tags: ['Kachi Ghani', 'Pure'],
+    ),
   ];
 }

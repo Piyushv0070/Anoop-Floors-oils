@@ -16,6 +16,7 @@ class ProductCard extends StatelessWidget {
   final List<String>? labels;
   final ProductCardVariant variant;
   final VoidCallback onAdd;
+  final VoidCallback? onTap;
 
   const ProductCard({
     super.key,
@@ -30,13 +31,17 @@ class ProductCard extends StatelessWidget {
     this.labels,
     this.variant = ProductCardVariant.vertical,
     required this.onAdd,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return variant == ProductCardVariant.vertical
-        ? _buildVerticalCard()
-        : _buildHorizontalCard();
+    return GestureDetector(
+      onTap: onTap,
+      child: variant == ProductCardVariant.vertical
+          ? _buildVerticalCard()
+          : _buildHorizontalCard(),
+    );
   }
 
   Widget _buildVerticalCard() {

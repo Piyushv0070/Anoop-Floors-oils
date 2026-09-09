@@ -7,6 +7,7 @@ import 'widgets/product_card.dart';
 import 'widgets/anoop_drawer.dart';
 import 'providers/cart_provider.dart';
 import 'data/product_data.dart';
+import 'product_details_page.dart';
 
 class AllProductsPage extends StatelessWidget {
   final String title;
